@@ -5,7 +5,6 @@
 ```
 python3 -m venv proj-env
 source proj-env/bin/activate
-
 ```
 
 # Build the req
@@ -17,3 +16,8 @@ pipreqs /path/to/project
 pip install -r requirements.txt
 ```
 
+
+## Start the application
+```
+python src/main.py
+```

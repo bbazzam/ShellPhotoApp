@@ -13,13 +13,13 @@ class AudioPlayer:
       self.audioDir = ""
    
    def loadaudio(self, audiodir):
-      audioDir = audiodir
-      self.log.info("Loading from the directory: %s", audiodir)
+      self.audioDir = audiodir
+      self.log.info("Loading from the directory: %s", self.audioDir)
 
-      audiofiles = [f for f in listdir(audiodir) if isfile(join(audiodir, f))]
+      self.audiofiles = [f for f in listdir(self.audioDir) if isfile(join(self.audioDir, f))]
       
-      print('Found files:', *audiofiles, sep='  ')
-      self.log.info('Found files:', *audiofiles, sep='  ')
+      print('Found files:', self.audiofiles, sep='  ')
+      self.log.info('Found files:', self.audiofiles, sep='  ')
 
       return
 
@@ -27,9 +27,11 @@ class AudioPlayer:
        max = len(self.audiofiles)
        self.log.info("max %s", max)
 
-       playIndex = randrange(0,max)
+       playIndex = 3 #randrange(0,max)
        print("playing audio at index {}, sound {}".format(playIndex, self.audiofiles[playIndex]))
-       p = vlc.MediaPlayer("{}/{}".format(self.audiofiles[playIndex]))
+       self.log.info('Found files:', self.audiofiles, sep='  ')
+
+       p = vlc.MediaPlayer("{}/{}".format(self.audioDir, self.audiofiles[playIndex]))
        p.play()
        return
 
