@@ -23,7 +23,7 @@ class App:
 
      self.initSoundPlayer()
      logging.basicConfig(level=logging.DEBUG)
-     self.lastTimeRunSec = time.time()
+     self.lastTimeRunSec = 1
      self.stop_event = threading.Event()
      self.thread = Thread(target = self.threaded_function())
      self.thread.start()
@@ -55,8 +55,8 @@ class App:
             # print("running")
             # time.sleep(1)
             self.audioPlayer.playSound(False)
-            self.camera.takePicture()
-            self.emailClient.sendPicture()
+            picture = self.camera.takePicture()
+            self.emailClient.sendPicture(picture)
             self.lastTimeRunSec = time.time()
          else:
             self.log.info("Wait num seconds before trying again %f", App.MIN_ELAPSE_TIME_SEC - (time.time() - self.lastTimeRunSec))

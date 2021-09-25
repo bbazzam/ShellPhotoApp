@@ -6,3 +6,4 @@ lib/*
 bin/*
 ShellPhoto.*
 log/*
+tmp/*
