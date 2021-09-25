@@ -9,7 +9,7 @@ def main(args):
     level=logging.DEBUG,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("shellphoto.log"),
+        logging.FileHandler("log/shellphoto.log"),
         logging.StreamHandler()
     ]
    )
