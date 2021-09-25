@@ -8,9 +8,11 @@
 
 import os
 import logging
+import sys
+import argparse
 
 from app import App
-def main(args):
+def main():
     """
     """
     logging.basicConfig(
@@ -20,12 +22,20 @@ def main(args):
         logging.FileHandler("log/shellphoto.log"),
         logging.StreamHandler()
     ]
-   )
+    )
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--config', type=str, required=False)
+    args = parser.parse_args()
+    configFile = "config/shellcamera.yml"
+    if (args.config != None):
+        configFile = args.config
+    print('***** config,', args.config)
 
     logging.info('Started')
-    app = App()
+    app = App(configFile)
     logging.info('Finished')
 
 if __name__ == '__main__':
     import sys
-    main(sys.argv[1:])
+    main()

@@ -27,11 +27,11 @@ class App:
    PHOTO_TMP_DIR = "tmp/"
    LISTEN_KEY = 'enter'
 
-   def __init__(self):
+   def __init__(self, configFile):
      self.log = logging.getLogger(__name__ + '.' + self.__class__.__name__)
      self.audioPlayer = AudioPlayer()
      self.camera = Camera()
-     self.emailClient = EmailClient()
+     self.emailClient = EmailClient(configFile)
 
      self.initSoundPlayer()
      logging.basicConfig(level=logging.DEBUG)

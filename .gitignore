@@ -7,3 +7,4 @@ bin/*
 ShellPhoto.*
 log/*
 tmp/*
+config/shellCamera_actual.yml

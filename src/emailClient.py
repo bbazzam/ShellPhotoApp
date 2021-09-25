@@ -14,7 +14,9 @@ import vlc
 import logging
 import time
 import email, smtplib, ssl
+import yaml
 import os
+
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
@@ -26,14 +28,26 @@ from datetime import datetime
 
 class EmailClient:
 
-   def __init__(self):
+   def __init__(self, configFile):
       self.log = logging.getLogger(__name__ + '.' + self.__class__.__name__)
+      try:
+         with open(configFile, "r") as configF:
+            cfg = yaml.load(configF, Loader=yaml.FullLoader)
+      except:
+        self.log.exception("Error Loading File ", message.get("Subject"))
+ 
+      # for section in cfg:
+      #    print(section)
+      #    print(cfg["sender_email"])
+
+      # print(cfg.get('sender_email', 'foo'))
+
       self.log.info("Loading Email Client")
       self.subject = "New Photo Alert"
       self.body = "Look who we caught pushing the don't push button"
-      self.sender_email = os.environ.get('SENDER_EMAIL')
-      self.receiver_email = os.environ.get('RECEIVER_EMAIL')
-      self.password = os.environ.get('EMAIL_PWD')
+      self.sender_email = cfg["sender_email"]
+      self.receiver_email = cfg["receiver_email"]
+      self.password = cfg["email_pwd"]
 
    def sendPicture(self, picture):
        self.log.info("Emailing Picture %s",)
