@@ -1,11 +1,22 @@
 import os
+import logging
+
 from app import App
 def main(args):
     """
     """
+    logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("shellphoto.log"),
+        logging.StreamHandler()
+    ]
+   )
+
+    logging.info('Started')
     app = App()
-    app.startSound()
-    print("Starting audio")
+    logging.info('Finished')
 
 if __name__ == '__main__':
     import sys

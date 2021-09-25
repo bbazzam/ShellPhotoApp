@@ -1,16 +1,18 @@
 # from gpiozero import Button
 # from picamera import PiCamera
 import logging
+import keyboard
+import time
 
 from signal import pause
 from audioplayer import AudioPlayer
 
-import time
 class App: 
 
    def __init__(self):
      self.log = logging.getLogger(__name__ + '.' + self.__class__.__name__)
-
+     self.audioPlayer = AudioPlayer()
+     self.initSoundPlayer()
 
 # camera = PiCamera()
 
@@ -23,11 +25,10 @@ class App:
 # button = Button(4)
 # button.when_pressed = take_picture_with_camera
  
-   def startSound(self):
-      AudioPlayer.instance = AudioPlayer()
+   def initSoundPlayer(self):
       print("Loading audio file")
-      AudioPlayer.instance.loadaudio("audio")
-      AudioPlayer.instance.playSound()
+      self.audioPlayer.loadaudio("audio")
+      self.audioPlayer.playSound()
       return
 
 

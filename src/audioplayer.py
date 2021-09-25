@@ -1,9 +1,12 @@
+import random
 import vlc
 import logging
+import time
 
 from os import listdir
 from os.path import isfile, join
 from random import randrange, uniform
+from datetime import datetime
 
 class AudioPlayer:
 
@@ -11,6 +14,7 @@ class AudioPlayer:
       self.log = logging.getLogger(__name__ + '.' + self.__class__.__name__)
       self.audiofiles = []
       self.audioDir = ""
+      self.max = 0
    
    def loadaudio(self, audiodir):
       self.audioDir = audiodir
@@ -18,20 +22,23 @@ class AudioPlayer:
 
       self.audiofiles = [f for f in listdir(self.audioDir) if isfile(join(self.audioDir, f))]
       
-      print('Found files:', self.audiofiles, sep='  ')
-      self.log.info('Found files:', self.audiofiles, sep='  ')
+      self.log.info("[%s]", ', '.join(self.audiofiles))
+      self.audioCount = len(self.audiofiles)
+      self.log.info("Audio file count %s", self.audioCount)
 
       return
 
    def playSound(self):
-       max = len(self.audiofiles)
-       self.log.info("max %s", max)
+       random.seed(datetime.now())
 
-       playIndex = 3 #randrange(0,max)
-       print("playing audio at index {}, sound {}".format(playIndex, self.audiofiles[playIndex]))
-       self.log.info('Found files:', self.audiofiles, sep='  ')
+       playIndex = randrange(0, self.audioCount)
+       self.log.info("Selected audio at index %s, sound %s", playIndex, self.audiofiles[playIndex])
 
        p = vlc.MediaPlayer("{}/{}".format(self.audioDir, self.audiofiles[playIndex]))
+       self.log.info("Playing Audio: %s/%s", self.audioDir, self.audiofiles[playIndex])
        p.play()
-       return
+       time.sleep(1.5)
+       duration = p.get_length() / 1000
+       time.sleep(duration)
 
+       return
