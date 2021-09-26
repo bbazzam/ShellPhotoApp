@@ -1,3 +1,11 @@
-sender_email: placeHolder_senderEmail
-receiver_email: placeHolder_receiverEmail
-email_pwd: placeHolder_emailPwd
+senderEmail: placeHolder_senderEmail
+receiverEmail: placeHolder_receiverEmail
+emailPwd: placeHolder_emailPwd
+# Maximum number of photos to store in temp dir
+maxTmpFileCount: 4
+# Number Of ms to display the image temp when in debug
+windowTimeDisplayMS: 3000
+# Directory to save the images temp
+photoTmpDir: "tmp/"
+# Time allowed between button pushes
+minButtonPushElapseTimeSec: 10

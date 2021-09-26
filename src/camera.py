@@ -20,10 +20,11 @@ from datetime import datetime
 class Camera:
    WINDOW_TIME_DISPLAY_MS = 3000
 
-   def __init__(self):
+   def __init__(self, config):
       self.log = logging.getLogger(__name__ + '.' + self.__class__.__name__)
       self.log.info("Bootstrapping Camera")
       self.loadCamera()
+      Camera.WINDOW_TIME_DISPLAY_MS = config.get("windowTimeDisplayMS", Camera.WINDOW_TIME_DISPLAY_MS)
 
    def loadCamera(self):
       self.cam = cv2.VideoCapture(0)   # 0 -> index of camera

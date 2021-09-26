@@ -27,12 +27,16 @@ class App:
    PHOTO_TMP_DIR = "tmp/"
    LISTEN_KEY = 'enter'
 
-   def __init__(self, configFile):
+   def __init__(self, config):
      self.log = logging.getLogger(__name__ + '.' + self.__class__.__name__)
      self.audioPlayer = AudioPlayer()
-     self.camera = Camera()
-     self.emailClient = EmailClient(configFile)
-
+     self.camera = Camera(config)
+     self.emailClient = EmailClient(config)
+     self.config = config
+     App.MAX_TMP_FILE_COUNT = config.get("maxTmpFileCount", App.MAX_TMP_FILE_COUNT)
+     App.PHOTO_TMP_DIR = config.get("photoTmpDir", App.PHOTO_TMP_DIR)
+     App.MIN_ELAPSE_TIME_SEC = config.get("minButtonPushElapseTimeSec", App.MIN_ELAPSE_TIME_SEC)
+     App.LISTEN_KEY = config.get("listenKey", App.LISTEN_KEY)     
      self.initSoundPlayer()
      logging.basicConfig(level=logging.DEBUG)
      self.lastTimeRunSec = 1

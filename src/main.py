@@ -10,6 +10,7 @@ import os
 import logging
 import sys
 import argparse
+from config import Configuration
 
 from app import App
 def main():
@@ -27,13 +28,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', type=str, required=False)
     args = parser.parse_args()
+    
     configFile = "config/shellcamera.yml"
     if (args.config != None):
         configFile = args.config
     print('***** config,', args.config)
-
+    
+    config = Configuration(configFile)
+    
     logging.info('Started')
-    app = App(configFile)
+    app = App(config)
     logging.info('Finished')
 
 if __name__ == '__main__':
