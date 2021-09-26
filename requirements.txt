@@ -1,4 +1,6 @@
 keyboard==0.13.5
+numpy==1.21.2
+opencv-python==4.5.3.56
 pygame==2.0.1
 pyobjc==7.3
 pyobjc-core==7.3
@@ -101,3 +103,5 @@ pyobjc-framework-VideoToolbox==7.3
 pyobjc-framework-Vision==7.3
 pyobjc-framework-WebKit==7.3
 python-vlc==3.0.12118
+PyYAML==5.4.1
+secure-smtplib==0.1.1
