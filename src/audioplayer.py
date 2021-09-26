@@ -30,7 +30,8 @@ class AudioPlayer:
       self.audioDir = audiodir
       self.log.info("Loading from the directory: %s", self.audioDir)
       self.audiofiles = [f for f in listdir(self.audioDir) if isfile(join(self.audioDir, f))]
-      self.audiofiles.remove(".DS_Store")
+      if '.DS_Store' in self.audiofiles:
+         self.audiofiles.remove(".DS_Store")
       self.log.info("[%s]", ', '.join(self.audiofiles))
       self.audioCount = len(self.audiofiles)
       self.log.info("Audio file count %s", self.audioCount)
