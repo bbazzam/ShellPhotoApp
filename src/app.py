@@ -51,6 +51,22 @@ class App:
       self.audioPlayer.playSound(False)
       return
 
+
+
+   def photoDirCleanup_v2(self, path):
+      del_list = self.sorted_ls(path)[0:(len(self.sorted_ls(path)) - self.MAX_TMP_FILE_COUNT)]
+      self.log.debug("Number of toDelete %d", len(del_list))
+
+      for dfile in del_list:
+         self.log.debug("Deleting %s %s", path , dfile)
+         os.remove(path + dfile)
+      return 
+
+   def sorted_ls(self, path):
+      mtime = lambda f: os.stat(os.path.join(path, f)).st_mtime
+      return list(sorted(os.listdir(path), key=mtime))
+ 
+
    def photoDirCleanup(self):
       # Only keep N number of photos so we don't kill the mem
       # recursive call to keep deleting until we hit the max allowed 
@@ -81,7 +97,7 @@ class App:
                self.emailClient.sendPicture(picture)
             else:
                self.log.error("Return none from camera module, not emailing")
-            self.photoDirCleanup()
+            self.photoDirCleanup_v2(App.PHOTO_TMP_DIR)
             self.lastTimeRunSec = time.time()
          else:
             self.log.info("Wait num seconds before trying again %f", App.MIN_ELAPSE_TIME_SEC - (time.time() - self.lastTimeRunSec))

@@ -52,7 +52,7 @@ class EmailClient:
       message["Subject"] = self.subject
       message["Bcc"] = self.receiver_email  # Recommended for mass emails
       # # Add body to email
-      self.body = "Look who we caught pushing the don't push button \n photo:" + file
+      self.body = "Look who we caught pushing the don't push button" + file
       message.attach(MIMEText(self.body, "plain"))
       # # Open image file in binary mode
       with open(file, "rb") as attachment:
@@ -83,5 +83,6 @@ class EmailClient:
          with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
             server.login(self.sender_email, self.password)
             server.sendmail(self.sender_email, self.receiver_email, text)
+      
       except:
         self.log.exception("Issue with emailing picture ", message.get("Subject"))
