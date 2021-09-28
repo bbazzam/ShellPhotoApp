@@ -37,6 +37,8 @@ class Camera:
          s, img = self.cam.read()
          if s:    # frame captured without any errors
             cv2.namedWindow("cam-test", cv2.WINDOW_NORMAL)
+            self.cam.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+
             if logging.DEBUG >= logging.root.level:
                # Temporarily show the image in debug mode
                self.log.info("Previewing image")
@@ -48,6 +50,7 @@ class Camera:
                self.log.debug("Destroyed window")
             self.log.info("Saving Image, %s", filename)
             cv2.imwrite(filename, img) #save image
+         
        except:
           self.log.exception("Issue proessing image bailing, %s ", filename)
           return None
