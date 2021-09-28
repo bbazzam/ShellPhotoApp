@@ -27,17 +27,17 @@ class Camera:
       Camera.WINDOW_TIME_DISPLAY_MS = config.get("windowTimeDisplayMS", Camera.WINDOW_TIME_DISPLAY_MS)
 
    def loadCamera(self):
-      self.cam = cv2.VideoCapture(0)   # 0 -> index of camera
       return
 
    def takePicture(self, photoDir):
+       cam = cv2.VideoCapture(0)   # 0 -> index of camera
        filename = photoDir + str(uuid.uuid1()) + ".jpg"
        self.log.info("Taking Picture, %s", filename)
        try:
-         s, img = self.cam.read()
+         s, img = cam.read()
          if s:    # frame captured without any errors
             cv2.namedWindow("cam-test", cv2.WINDOW_NORMAL)
-            self.cam.set(cv2.CAP_PROP_BUFFERSIZE, 0)
+            cam.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
             if logging.DEBUG >= logging.root.level:
                # Temporarily show the image in debug mode
@@ -50,7 +50,7 @@ class Camera:
                self.log.debug("Destroyed window")
             self.log.info("Saving Image, %s", filename)
             cv2.imwrite(filename, img) #save image
-         
+            cam.release
        except:
           self.log.exception("Issue proessing image bailing, %s ", filename)
           return None
