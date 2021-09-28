@@ -52,7 +52,7 @@ class EmailClient:
       message["Subject"] = self.subject
       message["Bcc"] = self.receiver_email  # Recommended for mass emails
       # # Add body to email
-      self.body = self.body + "\n photo:" + file
+      self.body = "Look who we caught pushing the don't push button \n photo:" + file
       message.attach(MIMEText(self.body, "plain"))
       # # Open image file in binary mode
       with open(file, "rb") as attachment:
