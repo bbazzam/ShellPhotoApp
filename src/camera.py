@@ -37,7 +37,7 @@ class Camera:
          s, img = self.cam.read()
          if s:    # frame captured without any errors
             cv2.namedWindow("cam-test", cv2.WINDOW_NORMAL)
-            self.cam.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+            self.cam.set(cv2.CAP_PROP_BUFFERSIZE, 0)
 
             if logging.DEBUG >= logging.root.level:
                # Temporarily show the image in debug mode
